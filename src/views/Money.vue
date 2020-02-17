@@ -1,7 +1,7 @@
 <template>
     <Layout contentClass="content-wrapper">
 
-        <Tags/>
+        <Tags :dataSource.sync="tags"/>
 
         <Notes/>
 
@@ -12,7 +12,7 @@
     </Layout>
 </template>
 
-<script lang="ts">
+<script lang="js">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
@@ -24,15 +24,21 @@
     components: {Tags, Notes, Types, NumberPad}
   })
   export default class Money extends Vue {
+    data() {
+      return {
+        tags: ['衣', '食', '住', '行']
+      };
+    }
 
   }
 </script>
 
 <style lang="scss">
-    .content-wrapper{
+    .content-wrapper {
         display: flex;
         flex-direction: column;
-        .tags{
+
+        .tags {
             flex-grow: 1;
             display: flex;
             flex-direction: column-reverse;
