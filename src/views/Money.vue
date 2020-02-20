@@ -1,18 +1,20 @@
 <template>
     <Layout contentClass="content-wrapper">
 
-        <Tags :dataSource.sync="tags"/>
+        {{record}}
 
-        <Notes/>
+        <Tags :dataSource.sync="tags" @update:value="onUpdateTags"/>
 
-        <Types/>
+        <Notes @update:value="onUpdateNotes"/>
 
-        <NumberPad/>
+        <Types :value.sync="record.type"/>
+
+        <NumberPad :value.sync="record.amount"/>
 
     </Layout>
 </template>
 
-<script lang="js">
+<script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
@@ -20,15 +22,30 @@
   import Notes from '@/components/Money/Notes.vue';
   import Tags from '@/components/Money/Tags.vue';
 
+  type Record = {
+    tags: string[]
+    notes: string
+    type: string
+    amount: number
+  }
+
   @Component({
     components: {Tags, Notes, Types, NumberPad}
   })
   export default class Money extends Vue {
-    data() {
-      return {
-        tags: ['衣', '食', '住', '行']
-      };
+
+    tags = ['衣', '食', '住', '行'];
+
+    record: Record = {tags: [], notes: '', type: '-', amount: 0};
+
+    onUpdateTags(value: string[]) {
+      this.record.tags = value;
     }
+
+    onUpdateNotes(value: string) {
+      this.record.notes = value;
+    }
+    
 
   }
 </script>
