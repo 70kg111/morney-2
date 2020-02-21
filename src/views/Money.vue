@@ -26,7 +26,7 @@
   window.localStorage.setItem('version', '0.0.1');
 
   @Component({
-    components: {Tabs, Tags, FormItem, Types, NumberPad},
+    components: {Tabs, Tags, FormItem, NumberPad},
   })
   export default class Money extends Vue {
 
