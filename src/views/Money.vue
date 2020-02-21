@@ -1,13 +1,13 @@
 <template>
     <Layout contentClass="content-wrapper">
 
-        <Tags/>
+        <Tags @update:value="record.tags = $event"/>
 
         <div class="notes">
-            <FormItem field-name="备注" @update:value="onUpdateNotes" placeholder="在这里输入备注"/>
+            <FormItem field-name="备注" @update:value="onUpdateNotes" placeholder="在这里输入备注" :value="this.record.notes"/>
         </div>
 
-        <Tabs :data-source="recordTypeList" :value.sync="record.type" />
+        <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
 
         <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
 
@@ -47,7 +47,14 @@
     }
 
     saveRecord() {
+      if (!this.record.tags || this.record.tags.length === 0) {
+        return window.alert('请至少选择一个标签');
+      }
       this.$store.commit('createRecord', this.record);
+      if (this.$store.state.createRecordError) {
+        window.alert('创建成功');
+      }
+      this.record.notes = '';
     }
 
   }

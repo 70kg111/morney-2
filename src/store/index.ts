@@ -10,12 +10,19 @@ const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
+    createRecordError:null,
     currentTag: undefined
   } as RootState,
   mutations: {
     //tag
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', '吃饭');
+        store.commit('createTag', '喝酒');
+        store.commit('createTag', '打牌');
+        store.commit('createTag', '日批');
+      }
     },
     setCurrentTag(state, id: string) {
       state.currentTag = state.tagList.filter(t => t.id === id)[0];
@@ -28,7 +35,7 @@ const store = new Vuex.Store({
       const id = createId().toString();
       state.tagList.push({id: id, name: name});
       store.commit('saveTags');
-      window.alert('创建成功');
+
     },
     updateTag(state, payload: { id: string, name: string }) {
       const {id, name} = payload;
@@ -64,14 +71,15 @@ const store = new Vuex.Store({
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
-    createRecord(state, record) {
-      const record2: RecordItem = clone(record);
+    createRecord(state, record: RecordItem) {
+      const record2 = clone(record);
       record2.createdAt = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords');
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
+      window.alert('记账成功');
     },
 
   }

@@ -19,7 +19,7 @@
   @Component
   export default class Tags extends Vue {
 
-    get tagList(){
+    get tagList() {
       return this.$store.state.tagList;
     }
 
@@ -43,6 +43,7 @@
       const name = window.prompt('请输入标签名：');
       if (!name) { return window.alert('请输入正确的标签名！'); }
       this.$store.commit('createTag', name);
+      this.selectedTags = [];
     }
 
   }
