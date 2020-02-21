@@ -34,6 +34,7 @@
 
     created() {
       const id = this.$route.params.id;
+      this.$store.commit('fetchTags');
       this.$store.commit('setCurrentTag', id);
       if (!this.tag) {
         this.$router.replace('/404');
@@ -42,18 +43,15 @@
 
     update(name: string) {
       if (this.tag) {
-        //TODO
-        //store.updateTag(this.tag.id, name);
+        this.$store.commit('updateTag', {id: this.tag.id, name: name});
       }
     }
 
     remove() {
       if (this.tag) {
-        //TODO
-        // if (store.removeTag(this.tag.id)) {
-        //   window.alert('删除成功');
-        //   this.$router.back();
-        // }
+        this.$store.commit('removeTag', this.tag.id);
+        window.alert('删除成功');
+        this.$router.back();
       }
     }
 
