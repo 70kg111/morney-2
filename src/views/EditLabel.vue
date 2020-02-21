@@ -21,7 +21,7 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Button from '@/components/Button.vue';
-  import store from '@/store/index2';
+  import store from '@/store/index';
 
   @Component({
     components: {Button}
@@ -31,7 +31,8 @@
     tag?: Tag = undefined;
 
     created() {
-      this.tag = store.findTag(this.$route.params.id);
+      //TODO
+      //this.tag = store.findTag(this.$route.params.id);
       if (!this.tag) {
         this.$router.replace('/404');
       }
@@ -39,16 +40,18 @@
 
     update(name: string) {
       if (this.tag) {
-        store.updateTag(this.tag.id, name);
+        //TODO
+        //store.updateTag(this.tag.id, name);
       }
     }
 
     remove() {
       if (this.tag) {
-        if (store.removeTag(this.tag.id)) {
-          window.alert('删除成功');
-          this.$router.back();
-        }
+        //TODO
+        // if (store.removeTag(this.tag.id)) {
+        //   window.alert('删除成功');
+        //   this.$router.back();
+        // }
       }
     }
 
