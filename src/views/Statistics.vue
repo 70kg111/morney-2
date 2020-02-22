@@ -23,7 +23,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import Tags from '@/components/Money/Tags.vue';
   import Tabs from '@/components/Tabs.vue';
   import recordTypeList from '@/constants/recordTypeList';
   import dayjs from 'dayjs';
@@ -32,7 +31,7 @@
   const api = dayjs();
 
   @Component({
-    components: {Tabs, Tags}
+    components: {Tabs}
   })
   export default class Statistics extends Vue {
 
@@ -44,8 +43,8 @@
 
     recordTypeList = recordTypeList;
 
-    tagString(tags: Tags[]) {
-      return tags.length === 0 ? '(҂‾ ▵‾)σ(˚▽˚’!)/' : tags.map(t => t.name).join('，');
+    tagString(tags: Tag[]) {
+      return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
     }
 
     get recordList() {
@@ -144,7 +143,7 @@
         }
     }
 
-    .noResult{
+    .noResult {
         padding: 80px;
         text-align: center;
     }

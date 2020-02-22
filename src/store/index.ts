@@ -10,7 +10,7 @@ const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
-    createRecordError:null,
+    createRecordError: null,
     currentTag: undefined
   } as RootState,
   mutations: {
@@ -18,10 +18,10 @@ const store = new Vuex.Store({
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (!state.tagList || state.tagList.length === 0) {
-        store.commit('createTag', '吃饭');
-        store.commit('createTag', '喝酒');
-        store.commit('createTag', '打牌');
-        store.commit('createTag', '日批');
+        store.commit('createTag', '餐饮');
+        store.commit('createTag', '交通');
+        store.commit('createTag', '购物');
+        store.commit('createTag', '租房');
       }
     },
     setCurrentTag(state, id: string) {
@@ -35,7 +35,6 @@ const store = new Vuex.Store({
       const id = createId().toString();
       state.tagList.push({id: id, name: name});
       store.commit('saveTags');
-
     },
     updateTag(state, payload: { id: string, name: string }) {
       const {id, name} = payload;
